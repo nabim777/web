@@ -90,4 +90,9 @@ Feature: Search
       | fileWithTag.txt               |
       | withTag.txt                   |
       | spaceFolder/spaceTextfile.txt |
+
+    When "Brian" opens the following file in texteditor
+      | resource     |
+      | textfile.txt |
+    Then "Brian" should see the message "No results found" on the webUI
     And "Brian" logs out

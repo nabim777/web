@@ -201,8 +201,8 @@ export class Resource {
     await po.editResources({ ...args, page: this.#page })
   }
 
-  async openFileInViewer(args: Omit<po.openFileInViewerArgs, 'page'>): Promise<void> {
-    await po.openFileInViewer({ ...args, page: this.#page })
+  async openFile(args: Omit<po.openFileArgs, 'page'>): Promise<void> {
+    await po.openFile({ ...args, page: this.#page })
   }
 
   async addTags(args: Omit<po.resourceTagsArgs, 'page'>): Promise<void> {

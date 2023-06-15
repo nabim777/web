@@ -433,15 +433,15 @@ When(
 )
 
 When(
-  /^"([^"].*)" opens the following file(?:s)? in (mediaviewer|pdfviewer)$/,
+  /^"([^"].*)" opens the following file(?:s)? in (mediaviewer|pdfviewer|texteditor)$/,
   async function (this: World, stepUser: string, actionType: string, stepTable: DataTable) {
     const { page } = this.actorsEnvironment.getActor({ key: stepUser })
     const resourceObject = new objects.applicationFiles.Resource({ page })
 
     for (const info of stepTable.hashes()) {
-      await resourceObject.openFileInViewer({
+      await resourceObject.openFile({
         name: info.resource,
-        actionType: actionType as 'mediaviewer' | 'pdfviewer'
+        actionType: actionType as 'mediaviewer' | 'pdfviewer' | 'texteditor'
       })
     }
   }
