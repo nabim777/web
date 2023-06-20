@@ -150,3 +150,31 @@ export const deleteSpace = ({ user, space }: { user: User; space: Space }): Prom
     header: { Purge: 'T' }
   })
 }
+
+export const addTagsToTheResource = async ({
+  user,
+  resourceName,
+  tag
+}: {
+  user: User
+  resourceName: string
+  tag: string
+}): Promise<Response> => {
+  const resourceId = await getIdOfFileInsideSpace({
+    user: user,
+    pathToFileName: resourceName,
+    spaceName: user.displayName,
+    spaceType: 'personal'
+  })
+  const body = JSON.stringify({
+    resourceId: resourceId,
+    tags: [tag]
+  })
+
+  return request({
+    method: 'PUT',
+    path: join('graph', 'v1.0', 'extensions', 'org.libregraph', 'tags'),
+    body: body,
+    user: user
+  })
+}

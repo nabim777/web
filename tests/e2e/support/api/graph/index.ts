@@ -13,5 +13,6 @@ export {
   createSpace,
   getSpaceIdBySpaceName,
   disableSpace,
-  deleteSpace
+  deleteSpace,
+  addTagsToTheResource
 } from './spaces'
