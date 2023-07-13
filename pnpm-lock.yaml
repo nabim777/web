@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   '@uppy/companion-client': https://github.com/owncloud/uppy/releases/download/v3.12.0-owncloud/uppy-companion-client.tgz
   '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.0-owncloud/uppy-core.tgz
@@ -732,8 +736,8 @@ importers:
         specifier: 4.0.1
         version: 4.0.1(vue@3.3.4)
       vue-router:
-        specifier: 4.2.0
-        version: 4.2.0(vue@3.3.4)
+        specifier: 4.2.4
+        version: 4.2.4(vue@3.3.4)
       vue3-gettext:
         specifier: ^2.3.3
         version: 2.3.4(@vue/compiler-sfc@3.3.4)(vue@3.3.4)
@@ -934,8 +938,8 @@ importers:
         specifier: 4.0.1
         version: 4.0.1(vue@3.3.4)
       vue-router:
-        specifier: 4.2.0
-        version: 4.2.0(vue@3.3.4)
+        specifier: 4.2.4
+        version: 4.2.4(vue@3.3.4)
       vue3-gettext:
         specifier: 2.5.0-alpha.1
         version: 2.5.0-alpha.1(@vue/compiler-sfc@3.3.4)(vue@3.3.4)
@@ -1066,8 +1070,8 @@ importers:
         specifier: 3.1.2
         version: 3.1.2(vue@3.3.4)
       vue-router:
-        specifier: 4.2.0
-        version: 4.2.0(vue@3.3.4)
+        specifier: 4.2.4
+        version: 4.2.4(vue@3.3.4)
       vue-select:
         specifier: 4.0.0-beta.6
         version: 4.0.0-beta.6(vue@3.3.4)
@@ -1124,8 +1128,8 @@ importers:
         specifier: 2.1.4
         version: 2.1.4(typescript@4.9.5)(vue@3.3.4)
       vue-router:
-        specifier: 4.2.0
-        version: 4.2.0(vue@3.3.4)
+        specifier: 4.2.4
+        version: 4.2.4(vue@3.3.4)
       vue3-gettext:
         specifier: ^2.3.3
         version: 2.3.4(@vue/compiler-sfc@3.3.4)(vue@3.3.4)
@@ -20693,6 +20697,16 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.5.0
       vue: 3.3.4
+    dev: true
+
+  /vue-router@4.2.4(vue@3.3.4):
+    resolution: {integrity: sha512-9PISkmaCO02OzPVOMq2w82ilty6+xJmQrarYZDkjZBfl4RvYAlt4PKnEX21oW4KTtWfa9OuO/b3qk1Od3AEdCQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.3.4
+    dev: false
 
   /vue-select@4.0.0-beta.6(vue@3.3.4):
     resolution: {integrity: sha512-K+zrNBSpwMPhAxYLTCl56gaMrWZGgayoWCLqe5rWwkB8aUbAUh7u6sXjIR7v4ckp2WKC7zEEUY27g6h1MRsIHw==}
@@ -21733,7 +21747,3 @@ packages:
       lodash: 4.17.21
       vue: 3.3.4
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
