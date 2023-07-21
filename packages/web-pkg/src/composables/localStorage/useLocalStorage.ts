@@ -1,6 +1,6 @@
-import { ref, watch, unref } from 'vue'
+import { ref, watch, unref, Ref } from 'vue'
 
-export const useLocalStorage = (key: string, defaultValue: any = undefined): any => {
+export const useLocalStorage = (key: string, defaultValue: any = undefined): Ref<any> => {
   const existingValue = window.localStorage.getItem(key)
   const variable = ref(defaultValue)
 

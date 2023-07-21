@@ -1,5 +1,5 @@
 import ThemeSwitcher from 'web-runtime/src/components/Topbar/ThemeSwitcher.vue'
-import { themeNameDark, themeNameLight } from '../../../../src/composables'
+import { themeNameDark, themeNameLight } from 'web-pkg/src/composables'
 import {
   createStore,
   defaultPlugins,
@@ -23,8 +23,6 @@ const darkTheme = {
     }
   }
 }
-
-const spyToggleTheme = jest.spyOn((ThemeSwitcher as any).methods, 'toggleTheme')
 
 describe('ThemeSwitcher component', () => {
   describe('visually', () => {
@@ -50,6 +48,7 @@ describe('ThemeSwitcher component', () => {
 
     it('toggles between themes upon click', async () => {
       const { wrapper } = getWrapper()
+      const spyToggleTheme = jest.spyOn(wrapper.vm, 'toggleTheme')
       expect(spyToggleTheme).toHaveBeenCalledTimes(0)
 
       await wrapper.find('.themeswitcher-btn').trigger('click')

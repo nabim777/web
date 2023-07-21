@@ -13,15 +13,22 @@
 </template>
 <script lang="ts">
 import { computed, unref, watch, defineComponent } from 'vue'
-import { mapGetters } from 'vuex'
-import { useStore, useLocalStorage } from 'web-pkg/src/composables'
-import { themeNameDark, themeNameLight, useDefaultThemeName } from '../../composables'
+import { useGettext } from 'vue3-gettext'
+import { useStore } from 'web-pkg/src/composables'
+import {
+  useCurrentThemeName,
+  themeNameDark,
+  themeNameLight,
+  useLightTheme
+} from 'web-pkg/src/composables/theme'
 
 export default defineComponent({
   setup() {
     const store = useStore()
-    const currentThemeName = useLocalStorage('oc_currentThemeName', useDefaultThemeName())
+    const currentThemeName = useCurrentThemeName()
     const currentTheme = computed(() => store.getters.configuration.themes[unref(currentThemeName)])
+    const { isLightTheme } = useLightTheme({ currentThemeName })
+    const { $gettext } = useGettext()
     const applyTheme = (theme) => {
       for (const param in theme.designTokens.colorPalette) {
         ;(document.querySelector(':root') as HTMLElement).style.setProperty(
@@ -36,26 +43,27 @@ export default defineComponent({
       applyTheme(unref(currentTheme))
     })
 
-    return { currentThemeName, currentTheme }
-  },
-  computed: {
-    ...mapGetters(['configuration']),
-    isLightTheme() {
-      return [null, themeNameLight].includes(this.currentThemeName)
-    },
-    buttonLabel() {
-      return this.$gettext('Click to switch theme')
-    },
-    switchIcon() {
-      return this.isLightTheme ? 'sun' : 'moon-clear'
-    },
-    switchLabel() {
-      return this.$gettext('Currently used theme')
+    const toggleTheme = () => {
+      currentThemeName.value = unref(isLightTheme) ? themeNameDark : themeNameLight
     }
-  },
-  methods: {
-    toggleTheme() {
-      this.currentThemeName = this.isLightTheme ? themeNameDark : themeNameLight
+
+    const buttonLabel = computed(() => {
+      return $gettext('Click to switch theme')
+    })
+
+    const switchIcon = computed(() => {
+      return unref(isLightTheme) ? 'sun' : 'moon-clear'
+    })
+
+    const switchLabel = computed(() => {
+      return $gettext('Currently used theme')
+    })
+
+    return {
+      toggleTheme,
+      buttonLabel,
+      switchIcon,
+      switchLabel
     }
   }
 })
