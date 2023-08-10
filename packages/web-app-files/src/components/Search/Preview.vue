@@ -31,8 +31,7 @@ import { mapGetters } from 'vuex'
 import { createLocationShares, createLocationSpaces } from '../../router'
 import { basename, dirname } from 'path'
 import { useCapabilityShareJailEnabled, useGetMatchingSpace } from 'web-pkg/src/composables'
-import { buildShareSpaceResource, isProjectSpaceResource, Resource } from 'web-client/src/helpers'
-import { configurationManager } from 'web-pkg/src/configuration'
+import { isProjectSpaceResource, Resource } from 'web-client/src/helpers'
 import { eventBus } from 'web-pkg/src/services/eventBus'
 import { createFileRouteOptions } from 'web-pkg/src/helpers/router'
 
@@ -54,7 +53,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { getInternalSpace } = useGetMatchingSpace()
+    const { getInternalSpace, getMatchingSpace } = useGetMatchingSpace()
     const previewData = ref()
     const resource = computed((): Resource => {
       return {
@@ -68,6 +67,7 @@ export default defineComponent({
     return {
       ...useFileActions(),
       getInternalSpace,
+      getMatchingSpace,
       hasShareJail: useCapabilityShareJailEnabled(),
       previewData,
       resource
@@ -96,16 +96,7 @@ export default defineComponent({
           }
     },
     matchingSpace() {
-      const space = this.spaces.find((space) => space.id === this.resource.storageId)
-      if (space) {
-        return space
-      }
-
-      return buildShareSpaceResource({
-        shareId: this.resource.shareId,
-        shareName: basename(this.resource.shareRoot),
-        serverUrl: configurationManager.serverUrl
-      })
+      return this.getMatchingSpace(this.resource)
     },
     defaultParentFolderName() {
       if (this.resource.shareId) {
