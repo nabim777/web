@@ -567,7 +567,7 @@ export default {
       )
     }
 
-    return Promise.all(promises).then(() => {
+    return Promise.allSettled(promises).then(() => {
       commit('SET_ANCESTOR_META_DATA', ancestorMetaData)
     })
   }
