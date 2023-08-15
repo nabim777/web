@@ -306,7 +306,6 @@ export default defineComponent({
 
     const route = useRoute()
     const breadcrumbs = computed(() => {
-      console.log('ancestorMetaData', unref(ancestorMetaData))
       const space = props.space
       const rootBreadcrumbItems: BreadcrumbItem[] = []
       if (isProjectSpaceResource(space)) {
@@ -340,12 +339,15 @@ export default defineComponent({
         spaceBreadcrumbItem = {
           id: uuidv4(),
           text: space.name,
-          to: createLocationSpaces('files-spaces-generic', {
-            params,
-            query
+          ...(space.ownerId === store.getters.user.uuid && {
+            to: createLocationSpaces('files-spaces-generic', {
+              params,
+              query
+            })
           })
         }
       } else if (isMountPointSpaceResource(space)) {
+        // FIXME: Remove?
         spaceBreadcrumbItem = {
           id: uuidv4(),
           allowContextActions: true,
