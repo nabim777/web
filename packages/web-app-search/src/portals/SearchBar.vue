@@ -169,6 +169,7 @@ export default defineComponent({
     const buildLocationScopeId = () => {
       const currentFolder = store.getters['Files/currentFolder']
       const path = currentFolder.path === '/' ? '' : currentFolder.path
+      // FIXME: search in root share does not work
       if (isShareRoute()) {
         return `${SHARE_JAIL_ID}$${SHARE_JAIL_ID}!${shareId.value}${path}`
       }
