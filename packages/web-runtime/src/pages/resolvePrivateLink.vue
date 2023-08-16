@@ -68,7 +68,7 @@ import {
 } from 'web-client/src/helpers'
 import { configurationManager } from 'web-pkg/src/configuration'
 import { RouteLocationRaw } from 'vue-router'
-import { useLoadFileInfoById } from '../composables/fileInfo'
+import { useLoadFileInfoById } from 'web-pkg/src/composables/fileInfo'
 import { useGettext } from 'vue3-gettext'
 
 export default defineComponent({
@@ -266,3 +266,4 @@ export default defineComponent({
   }
 }
 </style>
+../../../web-pkg/src/composables/fileInfo
