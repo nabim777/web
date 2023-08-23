@@ -1,10 +1,15 @@
 Feature: spaces public link
 
-  Scenario: public link for space
+
+  Background:
     Given "Admin" creates following users using API
       | id    |
       | Alice |
       | Brian |
+
+  Scenario: public link for space
+    Given "Admin" creates following users using API
+      | id    |
       | Carol |
       | David |
     And "Admin" assigns following roles to the users using API
@@ -46,3 +51,22 @@ Feature: spaces public link
     And "David" edits the public link named "spaceLink" of the space changing role to "Can edit"
     And "David" edits the public link named "folderLink" of resource "spaceFolder" changing role to "Can edit"
     And "David" logs out
+
+
+  Scenario: public link for folder
+    Given "Alice" logs in
+    And "Alice" creates the following resources
+      | resource         | type   |
+      | folderPublic     | folder |
+    And "Alice" uploads the following resources
+      | resource  | to               |
+      | lorem.txt | folderPublic     |
+    And "Alice" creates a public link for the resource "folderPublic" using the sidebar panel
+    And "Alice" renames the most recently created public link of resource "folderPublic" to "folderLink"
+    And "Alice" logs out
+    And "Brian" logs in
+    When "Brian" opens the public link "folderLink"
+    Then "Brian" should see file "lorem.txt" but should not be able to edit
+    And "Brian" logs out
+    When "Anonymous" opens the public link "folderLink"
+    Then "Anonymous" should see file "lorem.txt" but should not be able to edit
